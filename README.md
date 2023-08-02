@@ -16,7 +16,7 @@ Implementar um back-end para uma aplicação de gestão de tarefas de uma empres
 ### Rodando o projeto localmente - Ainda sem deploy
   Some basic Git commands are:
 ```
-git clone
+git clone https://github.com/Asoaresdev/backend-to-do-list.git
 cd backend-to-do-list
 npm i
 npm run dev
