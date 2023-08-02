@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"
 import { db } from "./database/knex"
 import cors from "cors"
-import { Tasks, User } from "./types"
+import { Tasks, User, UserTask } from "./types"
 import { type } from "os"
 
 const app = express()
@@ -157,7 +157,7 @@ app.post("/tasks", async (req: Request, res: Response) => {
             description
         }
         await db("tasks").insert(newTask)
-        res.status(201).send("Task criada com sucesso")
+        res.status(201).send({ message: "Task criada com sucesso" })
     } catch (error) {
         console.log(error);
 
@@ -241,7 +241,7 @@ app.delete("/tasks/:id", async (req: Request, res: Response) => {
             throw new Error("id não cadastrado")
         }
         await db("tasks").del().where({ id: idDeleted })
-        res.status(200).send({message:"Task deletada com sucesso"})
+        res.status(200).send({ message: "Task deletada com sucesso" })
     } catch (error) {
         console.log(error);
 
@@ -280,12 +280,12 @@ app.post("/users/:idUser/tasks/:idTask", async (req: Request, res: Response) => 
             res.statusCode = 400
             throw new Error("id de task não encontrado")
         }
-        const newUserTask = {
+        const newUserTask: UserTask = {
             user_id: idUser,
             task_id: idTask,
         }
         await db("users_tasks").insert(newUserTask)
-        res.status(201).send({ message: "Task criada com sucesso" })
+        res.status(206).send({ message: "Task criada com sucesso" })
     } catch (error) {
         console.log(error);
 
