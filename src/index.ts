@@ -13,21 +13,6 @@ app.listen(3003, () => {
     console.log("servidor rodando na porta 3003");
 })
 
-app.get("/ping", async (req: Request, res: Response) => {
-    try {
-        res.status(200).send({ message: "pong" })
-    } catch (error) {
-        console.log(error);
-        if (req.statusCode === 200) {
-            res.status(500)
-        }
-        if (error instanceof Error) {
-            res.send(error.message)
-        } else {
-            res.send("Erro inesperado")
-        }
-    }
-})
 
 app.get("/users", async (req: Request, res: Response) => {
     try {
@@ -83,7 +68,7 @@ app.post("/users", async (req: Request, res: Response) => {
             password
         }
         await db("users").insert(newUser)
-        res.status(201).send("Usuário criado com sucesso")
+        res.status(201).send({ message: "Usuário criado com sucesso" })
     } catch (error) {
         console.log(error);
 
@@ -112,7 +97,7 @@ app.delete("/users/:id", async (req: Request, res: Response) => {
             throw new Error("id não cadastrado")
         }
         await db("users").del().where({ id: idDeleted })
-        res.status(200).send("usuário deletado com sucesso")
+        res.status(200).send({ message: "usuário deletado com sucesso" })
     } catch (error) {
         console.log(error);
 
@@ -256,7 +241,7 @@ app.delete("/tasks/:id", async (req: Request, res: Response) => {
             throw new Error("id não cadastrado")
         }
         await db("tasks").del().where({ id: idDeleted })
-        res.status(200).send("Task deletada com sucesso")
+        res.status(200).send({message:"Task deletada com sucesso"})
     } catch (error) {
         console.log(error);
 
