@@ -11,3 +11,8 @@ export type Tasks = {
     created_at: string,
     status: number
 }
+
+export type UserTask = {
+    user_id: string,
+    task_id: string
+}
