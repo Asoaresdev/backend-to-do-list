@@ -1,4 +1,8 @@
 -- Active: 1690920933353@@127.0.0.1@3306
+
+-- DROP TABLE users;
+
+DROP TABLE users_tasks;
 CREATE TABLE users (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
@@ -17,8 +21,15 @@ CREATE TABLE tasks (
 CREATE TABLE users_tasks (
     user_id TEXT NOT NULL,
     task_id TEXT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
+        ON UPDATE CASCADE -- efeito cascata ao atualizar id na tabela purchases
+        ON DELETE CASCADE -- efeito cascata ao deletar id na tabela purchases
     FOREIGN KEY (task_id) REFERENCES tasks (id)
+        ON UPDATE CASCADE -- efeito cascata ao atualizar id na tabela purchases
+        ON DELETE CASCADE -- efeito cascata ao deletar id na tabela purchases
+
+
+        
 );
 
 INSERT INTO users (id, name, email, password)
